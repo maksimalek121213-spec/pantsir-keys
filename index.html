@@ -31,8 +31,6 @@
             text-align: center;
             width: 360px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            
-            /* Анимация появления */
             opacity: 0;
             transform: translateY(30px);
             animation: slideIn 0.6s ease-out forwards;
@@ -61,7 +59,7 @@
 
         .key-input-container {
             position: relative;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         input {
@@ -95,8 +93,6 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            
-            /* Градиент кнопки */
             background: linear-gradient(135deg, #a855f7, #7c3aed);
             color: white;
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
@@ -111,7 +107,6 @@
             transform: translateY(1px);
         }
 
-        /* Эффект волны при клике */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -125,7 +120,6 @@
             to { transform: scale(4); opacity: 0; }
         }
 
-        /* Уведомление */
         .notification {
             position: fixed;
             bottom: 30px;
@@ -154,7 +148,6 @@
             width: 20px;
             height: 20px;
         }
-
     </style>
 </head>
 <body>
@@ -163,11 +156,11 @@
         <h2>Pantsir Hub</h2>
         <p>Нажми кнопку, чтобы получить ключ доступа</p>
         
-        <button onclick="generateAndCopyKey(this)">
+        <button onclick="generateAndCopyKey(event, this)">
             Получить и скопировать ключ
         </button>
         
-        <div class="key-input-container" style="margin-top: 20px;">
+        <div class="key-input-container">
             <input type="text" id="keyField" readonly placeholder="Твой ключ появится здесь...">
         </div>
     </div>
@@ -178,27 +171,35 @@
     </div>
 
     <script>
-        function generateAndCopyKey(button) {
-            // 1. Генерация ключа
+        function generateAndCopyKey(event, button) {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let key = "PANTSIR-";
-            for (let i = 0; i < 16; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            
+            // Генерируем 15 случайных символов
+            let randomPart = "";
+            for (let i = 0; i < 15; i++) {
+                randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            
+            // Считаем простую математическую контрольную сумму от сгенерированной части
+            let checksum = 0;
+            for (let i = 0; i < randomPart.length; i++) {
+                checksum += randomPart.charCodeAt(i);
+            }
+            // Превращаем сумму в двузначную шестнадцатеричную или строковую метку
+            let checkCode = (checksum % 89 + 10).toString();
+            
+            // Итоговый вид ключа: PANTSIR- [случайная часть] - [код проверки]
+            let key = "PANTSIR-" + randomPart + "-" + checkCode;
             
             const keyField = document.getElementById('keyField');
             keyField.value = key;
 
-            // 2. Копирование в буфер
             navigator.clipboard.writeText(key).then(() => {
-                // 3. Эффект волны (ripple)
                 createRipple(event, button);
-                
-                // 4. Показ уведомления
                 showNotification();
             }).catch(err => {
                 console.error('Ошибка копирования: ', err);
-                alert('Не удалось скопировать автоматически. Скопируйте вручную из поля ниже.');
+                alert('Не удалось скопировать автоматически.');
             });
         }
 
@@ -208,13 +209,13 @@
             const radius = diameter / 2;
             
             ripple.style.width = ripple.style.height = `${diameter}px`;
-            ripple.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-            ripple.style.top = `${event.clientY - button.offsetTop - radius}px`;
+            ripple.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            ripple.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
             ripple.classList.add('ripple');
             
-            const rippleContainer = button.getElementsByClassName('ripple')[0];
-            if (rippleContainer) {
-                rippleContainer.remove();
+            const existingRipple = button.getElementsByClassName('ripple')[0];
+            if (existingRipple) {
+                existingRipple.remove();
             }
             
             button.appendChild(ripple);
@@ -223,8 +224,6 @@
         function showNotification() {
             const notif = document.getElementById('notif');
             notif.classList.add('show');
-            
-            // Скрыть через 3 секунды
             setTimeout(() => {
                 notif.classList.remove('show');
             }, 3000);
