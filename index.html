@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Pantsir Hub - Key Generator</title>
+    <style>
+        body { background-color: #121216; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #181816; padding: 30px; border-radius: 12px; border: 1px solid #a855f7; text-align: center; width: 320px; }
+        button { background: #a855f7; color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; }
+        button:hover { background: #9333ea; }
+        input { width: 100%; padding: 10px; background: #262630; border: 1px solid #454555; color: #fff; border-radius: 6px; box-sizing: border-box; text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Pantsir Hub Key</h2>
+        <p>Нажми кнопку, чтобы получить свой уникальный ключ доступа:</p>
+        <button onclick="generateKey()">Получить ключ</button>
+        <input type="text" id="keyField" readonly placeholder="Твой ключ появится здесь">
+    </div>
+
+    <script>
+        function generateKey() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let key = "PANTSIR-";
+            for (let i = 0; i < 16; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("keyField").value = key;
+            navigator.clipboard.writeText(key);
+            alert("Ключ сгенерирован и скопирован в буфер обмена!");
+        }
+    </script>
+</body>
+</html>
