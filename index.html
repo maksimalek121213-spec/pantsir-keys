@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantsir Hub | Secure Access</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            background-color: #0a0a0c;
+            background-color: #070709;
             background-image: 
-                radial-gradient(at 10% 10%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(30, 58, 138, 0.2) 0px, transparent 50%);
+                radial-gradient(at 15% 15%, rgba(168, 85, 247, 0.12) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
             color: #e0e0e0;
             font-family: 'Poppins', sans-serif;
             display: flex;
@@ -23,17 +27,18 @@
         }
 
         .main-box {
-            background: rgba(20, 20, 25, 0.6);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(16, 16, 22, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 45px 35px;
+            border-radius: 28px;
+            border: 1px solid rgba(168, 85, 247, 0.15);
             text-align: center;
-            width: 360px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            width: 390px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(168, 85, 247, 0.05);
             opacity: 0;
-            transform: translateY(30px);
-            animation: slideIn 0.6s ease-out forwards;
+            transform: translateY(20px);
+            animation: slideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes slideIn {
@@ -42,19 +47,21 @@
 
         h2 {
             font-weight: 700;
-            font-size: 28px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #a855f7, #ffffff);
+            font-size: 30px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #c084fc, #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: -0.5px;
         }
 
         p {
             font-weight: 300;
-            color: #a0a0b0;
-            margin-bottom: 30px;
-            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 35px;
+            font-size: 13.5px;
+            line-height: 1.5;
         }
 
         .key-input-container {
@@ -64,43 +71,46 @@
 
         input {
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(10, 10, 12, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-radius: 12px;
+            padding: 16px 20px;
+            background: rgba(10, 10, 14, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #c084fc;
+            border-radius: 14px;
             box-sizing: border-box;
             text-align: center;
             font-family: 'Poppins', monospace;
             font-size: 13px;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: rgba(168, 85, 247, 0.5);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(10, 10, 14, 0.8);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
         }
 
         button {
             width: 100%;
             padding: 16px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14.5px;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: linear-gradient(135deg, #a855f7, #7c3aed);
             color: white;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.35);
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.55);
+            background: linear-gradient(135deg, #b066f8, #894df2);
         }
 
         button:active {
@@ -110,7 +120,7 @@
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.35);
             transform: scale(0);
             animation: ripple 0.6s linear;
             pointer-events: none;
@@ -124,29 +134,37 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: rgba(20, 20, 25, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(18, 18, 24, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             color: #fff;
-            padding: 15px 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(40, 255, 100, 0.3);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 16px 22px;
+            border-radius: 14px;
+            border: 1px solid rgba(40, 255, 100, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            transform: translateX(150px);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            gap: 12px;
+            font-size: 13.5px;
+            font-weight: 500;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         .notification.show {
-            transform: translateX(0);
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         .notification svg {
-            fill: #28ff64;
+            fill: #22c55e;
             width: 20px;
             height: 20px;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -154,41 +172,37 @@
 
     <div class="main-box">
         <h2>Pantsir Hub</h2>
-        <p>Нажми кнопку, чтобы получить ключ доступа</p>
+        <p>Click the button below to generate and get your access key</p>
         
         <button onclick="generateAndCopyKey(event, this)">
-            Получить и скопировать ключ
+            Get & Copy Key
         </button>
         
         <div class="key-input-container">
-            <input type="text" id="keyField" readonly placeholder="Твой ключ появится здесь...">
+            <input type="text" id="keyField" readonly placeholder="Your key will appear here...">
         </div>
     </div>
 
     <div class="notification" id="notif">
         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        <span>Ключ скопирован в буфер обмена!</span>
+        <span>Key copied to clipboard successfully!</span>
     </div>
 
     <script>
         function generateAndCopyKey(event, button) {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             
-            // Генерируем 15 случайных символов
             let randomPart = "";
             for (let i = 0; i < 15; i++) {
                 randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
-            // Считаем простую математическую контрольную сумму от сгенерированной части
             let checksum = 0;
             for (let i = 0; i < randomPart.length; i++) {
                 checksum += randomPart.charCodeAt(i);
             }
-            // Превращаем сумму в двузначную шестнадцатеричную или строковую метку
             let checkCode = (checksum % 89 + 10).toString();
             
-            // Итоговый вид ключа: PANTSIR- [случайная часть] - [код проверки]
             let key = "PANTSIR-" + randomPart + "-" + checkCode;
             
             const keyField = document.getElementById('keyField');
@@ -198,8 +212,8 @@
                 createRipple(event, button);
                 showNotification();
             }).catch(err => {
-                console.error('Ошибка копирования: ', err);
-                alert('Не удалось скопировать автоматически.');
+                console.error('Copy error: ', err);
+                alert('Failed to copy automatically.');
             });
         }
 
